@@ -1,0 +1,27 @@
+[project]
+name = "fine-tune-llm-locally"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "dhruv",email = "dhruv166arya@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12, <3.13"
+dependencies = [
+    "mlx-lm (>=0.24.1,<0.25.0)",
+    "pandas (>=2.2.3,<3.0.0)",
+    "huggingface-hub (>=0.32.3,<0.33.0)",
+    "unsloth @ git+https://github.com/unslothai/unsloth.git",
+    "torch (>=2.7.0,<3.0.0)",
+    "torchvision (>=0.22.0,<0.23.0)",
+    "torchaudio (>=2.7.0,<3.0.0)",
+    "transformers (>=4.52.4,<5.0.0)",
+    "datasets (>=3.6.0,<4.0.0)",
+    "accelerate (>=1.7.0,<2.0.0)",
+    "tensorboard (>=2.19.0,<3.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
