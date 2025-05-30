@@ -34,6 +34,7 @@ model = AutoModelForCausalLM.from_pretrained(
     torch_dtype=torch.float16, 
     device_map=device_map,
     trust_remote_code=True,
+    offload_folder="./offload" 
 )
 
 print("📥 Loading tokenizer...")
@@ -49,7 +50,8 @@ lora_config = LoraConfig(
     r=8,
     lora_alpha=32,
     lora_dropout=0.1,
-    target_modules=["c_attn", "c_proj"],
+    # target_modules=["c_attn", "c_proj"], #For GPT style model
+    target_modules=["q_proj", "k_proj", "v_proj", "o_proj"]  # for LLaMA
 )
 
 print("🔗 Applying LoRA to the model...")

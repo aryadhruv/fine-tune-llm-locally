@@ -1,13 +1,20 @@
-from transformers import AutoTokenizer, AutoModelForCausalLM, TextStreamer
 import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer, TextStreamer
 
 model_path = "fine_tuned_model"
-tokenizer = AutoTokenizer.from_pretrained(model_path)
+
+print("🔄 Loading tokenizer...")
+tokenizer = AutoTokenizer.from_pretrained(model_path, legacy=False)
+tokenizer.pad_token = tokenizer.eos_token
+
+print("📥 Loading model with offloading...")
 model = AutoModelForCausalLM.from_pretrained(
     model_path,
-    torch_dtype=torch.float32,
-    device_map="auto"
+    torch_dtype=torch.float16,
+    device_map="auto",
+    offload_folder="./offload_infer"
 )
+model.config.pad_token_id = tokenizer.pad_token_id
 
 def chat():
     print("\n🤖 Start chatting with your model!")
@@ -31,15 +38,16 @@ def chat():
             _ = model.generate(
                 input_ids=input_ids,
                 attention_mask=attention_mask,
-                max_new_tokens=200,
+                max_new_tokens=2000,
                 do_sample=True,
-                temperature=0.7,
+                temperature=0.1,
                 top_p=0.9,
-                pad_token_id=tokenizer.eos_token_id,
+                pad_token_id=tokenizer.pad_token_id,
                 eos_token_id=tokenizer.eos_token_id,
-                streamer=streamer  # ✅ streaming!
+                streamer=streamer
             )
-            print()  # newline
+
+            print()
 
     except KeyboardInterrupt:
         print("\n👋 Chat interrupted. Goodbye!")

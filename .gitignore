@@ -160,3 +160,4 @@ cython_debug/
 #.idea/
 /fine_tuned_model
 /results
+/offload
