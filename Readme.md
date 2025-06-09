@@ -10,6 +10,7 @@ Works for Mac, but not optimized at all.
 Optimize the shit out of this.
 Explore Packages like Unsloth that a way faster than Lora/Qlora. and can support in fine tunning bog models on small machines.
 Building a training pipeline that does the standard two stepped approach for training LLMs -
-- RL using input dataset
-- Human in loop for further enhancement
+Steps : 
+1. RL using input dataset
+2. Human in loop for further enhancement
 
